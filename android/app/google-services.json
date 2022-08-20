@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "465417937203",
+    "project_id": "react-native-chat-ac104",
+    "storage_bucket": "react-native-chat-ac104.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465417937203:android:353588d6fc8774c9891e46",
+        "android_client_info": {
+          "package_name": "com.reactnativefirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465417937203-ga4kfe0rbvmpctk2gggn8557tvs4v0i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcogufe76WlfYYIZz23hYmOWrVu4wVUZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465417937203-ga4kfe0rbvmpctk2gggn8557tvs4v0i2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
