@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { NavigationAppStack } from '../navigation/AppNavigation';
 import { styles } from './Main.styles';
+import LogInForm, { ILogInForm } from '../components/LogInForm';
 
 const Main: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,15 +37,15 @@ const Main: React.FC = () => {
     auth()
       .signOut()
       .then(() => {
-        Alert.alert('signOut', 'User signed out!')
+        // Alert.alert('signOut', 'User signed out!')
       });
   };
 
-  const login = async () => {
+  const login = async (values: ILogInForm) => {
     auth()
-      .signInWithEmailAndPassword('test@test.com', '123456')
+      .signInWithEmailAndPassword(values.email, values.password)
       .then(() => {
-        console.log('User account created & signed in!');
+        console.log('User account signed in!');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -59,14 +60,20 @@ const Main: React.FC = () => {
       });
   };
 
+  const handleOnSubmit = (values: ILogInForm) => {
+    login(values);
+    // Alert.alert('SUBMIT', JSON.stringify(values, null, 2));
+  };
+
   return (
     <View style={styles.сontainer}>
       <Text>This is Main Page</Text>
       <View style={styles.separator} />
       <Button title="CHAT PAGE" onPress={() => navigate('Chat')} />
       <View style={styles.separator} />
-      <Button title="LOGIN" onPress={login} />
-      <View style={styles.separator} />
+      {/* <Button title="LOGIN" onPress={login} />
+      <View style={styles.separator} /> */}
+      <LogInForm onSubmit={handleOnSubmit} />
       <Button title="SIGN OUT" onPress={signOut} />
       <View style={styles.separator} />
       <Text>{JSON.stringify(user, null, 2)}</Text>

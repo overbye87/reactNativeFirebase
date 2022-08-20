@@ -1,22 +1,47 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import {
+  Alert, Button, TextInput, View,
+} from 'react-native';
+import { useFormik } from 'formik';
+
 import { styles } from './LogInForm.styles';
 
-const LogInForm = () => {
-  const [email, setEmail] = useState('test@test.com');
-  const [password, setPassword] = useState('123456');
+const initialValues = {
+  email: 'test@test.com',
+  password: '123456',
+};
+
+export type ILogInForm = typeof initialValues
+
+type Props = {
+  onSubmit: (values: ILogInForm) => void;
+}
+
+const LogInForm: React.FC<Props> = (props) => {
+  const onSubmit = (values: ILogInForm) => {
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: props.onSubmit,
+  });
+
   return (
     <View>
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
-        value={email}
+        onChangeText={formik.handleChange('email')}
+        value={formik.values.email}
+        onBlur={formik.handleBlur('email')}
       />
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
-        value={password}
+        onChangeText={formik.handleChange('password')}
+        value={formik.values.password}
+        onBlur={formik.handleBlur('password')}
       />
+      <Button title="SUBMIT" onPress={() => formik.handleSubmit()} />
     </View>
   );
 };

@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     backgroundColor: 'cyan',
   },
   input: {
-
+    borderWidth: 1,
+    borderColor: 'black',
+    paddingHorizontal: 20,
+    margin: 10,
   },
 });
