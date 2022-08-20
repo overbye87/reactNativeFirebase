@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useEffect, useState } from 'react';
 import {
   Alert, Button, Text, View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { NavigationAppStack } from '../navigation/AppNavigation';
 import { styles } from './Main.styles';
 
 const Main: React.FC = () => {
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   const { navigate } = useNavigation<NavigationAppStack<'Main'>>();
 
@@ -18,23 +19,45 @@ const Main: React.FC = () => {
     Alert.alert('Hello', 'OK');
   };
 
-  useEffect(() => {
+  const onAuthStateChanged = (user: any) => {
+    setUser(user);
+    if (loading) {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    auth().onAuthStateChanged(onAuthStateChanged);
   }, []);
 
-  // const login = async () => {
-  //   try {
-  //     console.log('try');
-  //     auth().onAuthStateChanged((userState) => {
-  //       setUser(userState);
-  //       if (loading) {
-  //         setLoading(false);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const userAuth = auth().currentUser;
+
+  const signOut = () => {
+    auth()
+      .signOut()
+      .then(() => {
+        Alert.alert('signOut', 'User signed out!')
+      });
+  };
+
+  const login = async () => {
+    auth()
+      .signInWithEmailAndPassword('test@test.com', '123456')
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  };
 
   return (
     <View style={styles.сontainer}>
@@ -42,10 +65,11 @@ const Main: React.FC = () => {
       <View style={styles.separator} />
       <Button title="CHAT PAGE" onPress={() => navigate('Chat')} />
       <View style={styles.separator} />
-      {/* <Button title="LOGIN" onPress={login} /> */}
+      <Button title="LOGIN" onPress={login} />
       <View style={styles.separator} />
-      <Button title="HELLO" onPress={hello} />
-      {/* <Text>{JSON.stringify(user, null, 2)}</Text> */}
+      <Button title="SIGN OUT" onPress={signOut} />
+      <View style={styles.separator} />
+      <Text>{JSON.stringify(user, null, 2)}</Text>
     </View>
   );
 };
