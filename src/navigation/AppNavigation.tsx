@@ -11,9 +11,14 @@ import ProtectedNavigator, { ProtectedStackParamList } from './ProtectedNavigato
 import { useTypedDispatch, useTypedSelector } from '../store/store';
 import { setLoading, setUser } from '../store/app/appSlice';
 
+enum AppScrens {
+  'CommonNavigator'= 'CommonNavigator',
+  'ProtectedNavigator'= 'ProtectedNavigator',
+}
+
 export type AppStackParamList = {
-  CommonNavigator: { screen: keyof CommonStackParamList; },
-  ProtectedNavigator: { screen: keyof ProtectedStackParamList; },
+ [AppScrens.CommonNavigator]: { screen: keyof CommonStackParamList; },
+ [AppScrens.ProtectedNavigator]: { screen: keyof ProtectedStackParamList; },
 };
 
 type ScreenKeys = keyof AppStackParamList;
@@ -51,14 +56,14 @@ const AppNavigation: React.FC = () => {
           !user
             ? (
               <AppStack.Screen
-                name="CommonNavigator"
+                name={AppScrens.CommonNavigator}
                 component={CommonNavigator}
                 options={{ headerShown: false }}
               />
             )
             : (
               <AppStack.Screen
-                name="ProtectedNavigator"
+                name={AppScrens.ProtectedNavigator}
                 component={ProtectedNavigator}
                 options={{ headerShown: false }}
               />
