@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Alert, Button, Text, View,
+  Alert, Button, FlatList, ListRenderItem, Text, View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 import { styles } from './Chat.styles';
 import { useTypedSelector } from '../store/store';
@@ -11,13 +11,12 @@ import TextInputForm from '../components/TextInputForm';
 import useCollectionSnapshot from '../hooks/useCollectionSnapshot';
 
 export enum Collections {
-  'messages'= 'messages',
+  'messages' = 'messages',
 }
 
 const Chat: React.FC = () => {
   const user = useTypedSelector((store) => store.app.user);
-
-  const mescol = firestore().collection(Collections.messages);
+  const snapshot = useCollectionSnapshot(Collections.messages);
 
   const signOut = async () => {
     const result = await auth().signOut();
@@ -34,16 +33,41 @@ const Chat: React.FC = () => {
     })
   };
 
-  const snapshot = useCollectionSnapshot(Collections.messages)
+  console.log(snapshot?.docs)
+
+  type IMessage = {
+    message: string;
+    displayName: string,
+    uid: string,
+  }
+
+  const renderItem: ListRenderItem<FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>> = ({ item }) => {
+    const message = item.data() as IMessage
+    return (
+      <View style={{ borderWidth: 1, margin: 5, padding: 5 }}>
+        <Text>{message.message}</Text>
+      </View>
+    )
+  };
 
   return (
     <View style={styles.сontainer}>
-      <Text>This is Chat Page</Text>
-      <Button title="SIGN OUT" onPress={signOut} />
+      <Text>Chat Page</Text>
+      <View style={styles.header}>
+        <Text style={{ flexGrow: 1 }}>User: {user?.email}</Text>
+        <Button title="SIGN OUT" onPress={signOut} />
+      </View>
+      <View style={{ flexGrow: 1, width: '100%' }}>
+        <Text>Chat List:</Text>
+        <FlatList
+          data={snapshot?.docs}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
       <View style={styles.chatContainer}>
         <TextInputForm onSubmit={handleOnSubmit} />
       </View>
-      <Text>{JSON.stringify(user, null, 2)}</Text>
     </View>
   );
 };
