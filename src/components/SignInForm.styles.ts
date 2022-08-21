@@ -2,15 +2,13 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   сontainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'cyan',
+    width: 300,
   },
   input: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'gray',
     paddingHorizontal: 20,
-    margin: 10,
+    marginVertical: 10,
+    borderRadius: 5,
   },
 });

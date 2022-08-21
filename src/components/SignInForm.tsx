@@ -5,21 +5,21 @@ import {
 } from 'react-native';
 import { useFormik } from 'formik';
 
-import { styles } from './LogInForm.styles';
+import { styles } from './SignInForm.styles';
 
 const initialValues = {
   email: 'test@test.com',
   password: '123456',
 };
 
-export type ILogInForm = typeof initialValues
+export type ISignInForm = typeof initialValues
 
 type Props = {
-  onSubmit: (values: ILogInForm) => void;
+  onSubmit: (values: ISignInForm) => void;
 }
 
-const LogInForm: React.FC<Props> = (props) => {
-  const onSubmit = (values: ILogInForm) => {
+const SignInForm: React.FC<Props> = (props) => {
+  const onSubmit = (values: ISignInForm) => {
   };
 
   const formik = useFormik({
@@ -27,8 +27,12 @@ const LogInForm: React.FC<Props> = (props) => {
     onSubmit: props.onSubmit,
   });
 
+  const isEmpty = (str: string) => {
+    return (!str || str.length === 0);
+  };
+
   return (
-    <View>
+    <View style={styles.сontainer}>
       <TextInput
         style={styles.input}
         onChangeText={formik.handleChange('email')}
@@ -41,9 +45,13 @@ const LogInForm: React.FC<Props> = (props) => {
         value={formik.values.password}
         onBlur={formik.handleBlur('password')}
       />
-      <Button title="SUBMIT" onPress={() => formik.handleSubmit()} />
+      <Button
+        title="SIGN IN"
+        onPress={() => formik.handleSubmit()}
+        disabled={isEmpty(formik.values.email) || isEmpty(formik.values.password)}
+      />
     </View>
   );
 };
 
-export default LogInForm;
+export default SignInForm;

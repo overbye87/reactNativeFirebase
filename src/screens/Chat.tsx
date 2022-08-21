@@ -1,15 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import { NavigationAppStack } from '../navigation/AppNavigation';
+import {
+  Alert, Button, Text, View,
+} from 'react-native';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { styles } from './Chat.styles';
+import { useTypedSelector } from '../store/store';
 
 const Chat: React.FC = () => {
-  const { navigate } = useNavigation<NavigationAppStack<'Chat'>>();
+  const user = useTypedSelector((store) => store.app.user);
+  const signOut = async () => {
+    const result = await auth().signOut();
+    // Alert.alert('signOut', JSON.stringify(result, null, 2));
+  };
   return (
     <View style={styles.сontainer}>
       <Text>This is Chat Page</Text>
-      <Button title="MAIN PAGE" onPress={() => navigate('Main')} />
+      <Button title="SIGN OUT" onPress={signOut} />
+      <Text>{JSON.stringify(user, null, 2)}</Text>
     </View>
   );
 };
