@@ -6,7 +6,7 @@ import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firest
 const useCollectionSnapshot = (collection: string) => {
   const [snapshot, setSnapshot] = useState <FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData> | null>(null);
   const onNext = (snapshot: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>) => {
-    console.log(snapshot.docs);
+    // console.log(snapshot.docs);
     setSnapshot(snapshot);
   };
 

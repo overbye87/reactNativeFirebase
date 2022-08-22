@@ -10,9 +10,16 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginVertical: 10,
     marginHorizontal: 20,
   },
-  chatContainer: {
+  chat: {
+    flex: 1,
+    flexGrow: 1,
+    alignSelf: 'stretch',
+    marginHorizontal: 10,
+  },
+  footer: {
     marginHorizontal: 20,
   },
 });

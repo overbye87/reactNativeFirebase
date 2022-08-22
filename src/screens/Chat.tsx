@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
     })
   };
 
-  console.log(snapshot?.docs)
+  //console.warn(user)
 
   type IMessage = {
     message: string;
@@ -46,6 +46,7 @@ const Chat: React.FC = () => {
     FirebaseFirestoreTypes.QueryDocumentSnapshot<
       FirebaseFirestoreTypes.DocumentData>> = ({ item }) => {
     const message = item.data() as IMessage
+    console.log(message)
     return (
       <ChatItem message={message} />
     )
@@ -53,13 +54,11 @@ const Chat: React.FC = () => {
 
   return (
     <View style={styles.сontainer}>
-      <Text>Chat Page</Text>
       <View style={styles.header}>
         <Text style={{ flexGrow: 1 }}>User: {user?.email}</Text>
         <Button title="SIGN OUT" onPress={signOut} />
       </View>
-      <Text>Chat List:</Text>
-      <View style={{flex: 1, flexGrow: 1, alignSelf: 'stretch'}}>
+      <View style={styles.chat}>
         <FlatList
           data={snapshot?.docs}
           renderItem={renderItem}
@@ -67,7 +66,7 @@ const Chat: React.FC = () => {
           nestedScrollEnabled
         />
       </View>
-      <View style={styles.chatContainer}>
+      <View style={styles.footer}>
         <TextInputForm onSubmit={handleOnSubmit} />
       </View>
     </View>
