@@ -9,6 +9,7 @@ import { styles } from './Chat.styles';
 import { useTypedSelector } from '../store/store';
 import TextInputForm from '../components/TextInputForm';
 import useCollectionSnapshot from '../hooks/useCollectionSnapshot';
+import ChatItem from '../components/ChatItem';
 
 export enum Collections {
   'messages' = 'messages',
@@ -41,12 +42,12 @@ const Chat: React.FC = () => {
     uid: string,
   }
 
-  const renderItem: ListRenderItem<FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>> = ({ item }) => {
+  const renderItem: ListRenderItem<
+    FirebaseFirestoreTypes.QueryDocumentSnapshot<
+      FirebaseFirestoreTypes.DocumentData>> = ({ item }) => {
     const message = item.data() as IMessage
     return (
-      <View style={{ borderWidth: 1, margin: 5, padding: 5 }}>
-        <Text>{message.message}</Text>
-      </View>
+      <ChatItem message={message} />
     )
   };
 
@@ -57,12 +58,13 @@ const Chat: React.FC = () => {
         <Text style={{ flexGrow: 1 }}>User: {user?.email}</Text>
         <Button title="SIGN OUT" onPress={signOut} />
       </View>
-      <View style={{ flexGrow: 1, width: '100%' }}>
-        <Text>Chat List:</Text>
+      <Text>Chat List:</Text>
+      <View style={{flex: 1, flexGrow: 1, alignSelf: 'stretch'}}>
         <FlatList
           data={snapshot?.docs}
           renderItem={renderItem}
           keyExtractor={item => item.id}
+          nestedScrollEnabled
         />
       </View>
       <View style={styles.chatContainer}>
