@@ -1,7 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import {
+  ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps,
+} from 'react-native';
 import { styles } from './CustomButton.styles';
 
 interface Props extends TouchableOpacityProps {

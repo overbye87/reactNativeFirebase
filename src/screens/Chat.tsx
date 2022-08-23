@@ -9,7 +9,7 @@ import { styles } from './Chat.styles';
 import { useTypedSelector } from '../store/store';
 import TextInputForm from '../components/TextInputForm';
 import useCollectionSnapshot from '../hooks/useCollectionSnapshot';
-import ChatItem from '../components/ChatItem';
+import ChatItem, { IMessage } from '../components/ChatItem';
 import CustomButton from '../components/CustomButton';
 
 export enum Collections {
@@ -36,12 +36,6 @@ const Chat: React.FC = () => {
   };
 
   //console.warn(user)
-
-  type IMessage = {
-    message: string;
-    displayName: string,
-    uid: string,
-  }
 
   const renderItem: ListRenderItem<
     FirebaseFirestoreTypes.QueryDocumentSnapshot<

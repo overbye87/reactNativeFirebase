@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './ChatItem.styles';
 
-type IMessage = {
+export type IMessage = {
   message: string;
   displayName: string;
   email: string;

@@ -7,7 +7,6 @@ import { useTypedSelector } from '../store/store';
 
 const SignIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const user = useTypedSelector((state) => state.app.user);
   const handleSignIn = async (values: ISignInForm) => {
     setLoading(true);
     try {
