@@ -35,15 +35,11 @@ const Chat: React.FC = () => {
     })
   };
 
-  //console.warn(user)
-
   const renderItem: ListRenderItem<
     FirebaseFirestoreTypes.QueryDocumentSnapshot<
       FirebaseFirestoreTypes.DocumentData>> = ({ item }) => {
-    const message = item.data() as IMessage
-    console.log(message)
     return (
-      <ChatItem message={message} />
+      <ChatItem item={item} />
     )
   };
 

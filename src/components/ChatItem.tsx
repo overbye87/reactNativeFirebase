@@ -3,8 +3,9 @@ import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './ChatItem.styles';
+import CustomButton from './CustomButton';
 
-export type IMessage = {
+export interface IMessage extends FirebaseFirestoreTypes.DocumentData {
   message: string;
   displayName: string;
   email: string;
@@ -13,15 +14,28 @@ export type IMessage = {
 }
 
 type Props = {
-  message: IMessage;
+  item: FirebaseFirestoreTypes.QueryDocumentSnapshot;
 }
 
 const ChatItem: React.FC<Props> = (props) => {
-  const date = new Date(props.message.createdAt.seconds * 1000);
+  const documentData = props.item.data();
+
+  const handleDelete = () => {
+    console.log(props.item.id);
+    const docRef = props.item.ref;
+    docRef.delete();
+  };
+
+  const date = new Date(documentData.createdAt.seconds * 1000);
   return (
     <View style={styles.сontainer}>
-      <Text>{date.toDateString()}</Text>
-      <Text>{props.message.message}</Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View>
+          <Text>{date.toDateString()}</Text>
+          <Text>{documentData.message}</Text>
+        </View>
+        <CustomButton title="X" style={{ width: 40 }} onPress={handleDelete} />
+      </View>
     </View>
   );
 };
