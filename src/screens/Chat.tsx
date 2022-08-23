@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Alert, Button, FlatList, ListRenderItem, Text, View,
+  Alert, FlatList, ListRenderItem, Text, View,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
@@ -10,6 +10,7 @@ import { useTypedSelector } from '../store/store';
 import TextInputForm from '../components/TextInputForm';
 import useCollectionSnapshot from '../hooks/useCollectionSnapshot';
 import ChatItem from '../components/ChatItem';
+import CustomButton from '../components/CustomButton';
 
 export enum Collections {
   'messages' = 'messages',
@@ -56,7 +57,7 @@ const Chat: React.FC = () => {
     <View style={styles.сontainer}>
       <View style={styles.header}>
         <Text style={{ flexGrow: 1 }}>User: {user?.email}</Text>
-        <Button title="SIGN OUT" onPress={signOut} />
+        <CustomButton title="SIGN OUT" onPress={signOut} />
       </View>
       <View style={styles.chat}>
         <FlatList

@@ -1,6 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
-import { Button, TextInput, View } from 'react-native';
+import { View } from 'react-native';
+import CustomButton from './CustomButton';
+import CustomTextInput from './CustomTextInput';
 import { styles } from './TextInputForm.styles';
 
 type Props = {
@@ -15,12 +17,12 @@ const TextInputForm: React.FC<Props> = (props) => {
   };
   return (
     <View style={styles.сontainer}>
-      <TextInput
+      <CustomTextInput
         style={styles.input}
         value={value}
         onChangeText={setValue}
       />
-      <Button title="SEND" onPress={handleOnPress} />
+      <CustomButton title="SEND" onPress={handleOnPress} />
     </View>
   );
 };
