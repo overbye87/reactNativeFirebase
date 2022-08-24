@@ -1,7 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import React from 'react';
-import { Text, View } from 'react-native';
+import {
+  Alert, Text, TouchableOpacity, View,
+} from 'react-native';
 import { styles } from './ChatItem.styles';
 import CustomButton from './CustomButton';
 
@@ -18,7 +20,8 @@ type Props = {
 }
 
 const ChatItem: React.FC<Props> = (props) => {
-  const documentData = props.item.data();
+  const documentData = props.item.data() as IMessage;
+  console.log(documentData);
 
   const handleDelete = () => {
     console.log(props.item.id);
@@ -26,17 +29,25 @@ const ChatItem: React.FC<Props> = (props) => {
     docRef.delete();
   };
 
-  const date = new Date(documentData.createdAt.seconds * 1000);
+  const handleOnPress = () => {
+    Alert.alert(props.item.id, JSON.stringify(documentData, null, 2));
+  };
+  if (documentData.createdAt) {
+    const date = new Date(
+      documentData.createdAt.seconds * 1000
+      + documentData.createdAt.nanoseconds / 1000,
+    );
+  }
   return (
-    <View style={styles.сontainer}>
+    <TouchableOpacity style={styles.сontainer} onPress={handleOnPress}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View>
-          <Text>{date.toDateString()}</Text>
+          {/* <Text>{date?.toDateString()}</Text> */}
           <Text>{documentData.message}</Text>
         </View>
         <CustomButton title="X" style={{ width: 40 }} onPress={handleDelete} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
