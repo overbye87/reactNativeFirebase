@@ -2,9 +2,16 @@ import React from 'react';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
+
+export enum CommonScreens {
+  'SignIn'= 'SignIn',
+  'SignUp'= 'SignUp',
+}
 
 export type CommonStackParamList = {
-  SignIn: undefined;
+  [CommonScreens.SignIn]: undefined;
+  [CommonScreens.SignUp]: undefined;
 }
 
 type ScreenKeys = keyof CommonStackParamList;
@@ -19,9 +26,14 @@ const CommonNavigator: React.FC = () => {
   return (
     <CommonStack.Navigator>
       <CommonStack.Screen
-        name="SignIn"
+        name={CommonScreens.SignIn}
         component={SignIn}
         options={{ title: 'Sign In', headerShown: false }}
+      />
+      <CommonStack.Screen
+        name={CommonScreens.SignUp}
+        component={SignUp}
+        options={{ title: 'Sign Up', headerShown: false }}
       />
     </CommonStack.Navigator>
   );

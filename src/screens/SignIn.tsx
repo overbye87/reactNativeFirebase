@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 import SignInForm, { ISignInForm } from '../components/SignInForm';
 import { styles } from './SignIn.styles';
 import { useTypedSelector } from '../store/store';
+import CustomButton from '../components/CustomButton';
+import { NavigationAppStack, AppScreenKeys, AppScreens } from '../navigation/AppNavigation';
+import { CommonScreens } from '../navigation/CommonNavigator';
 
 const SignIn: React.FC = () => {
+  const { navigate } = useNavigation<NavigationAppStack<AppScreenKeys>>();
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (values: ISignInForm) => {
     setLoading(true);
@@ -27,8 +32,13 @@ const SignIn: React.FC = () => {
 
   return (
     <View style={styles.сontainer}>
-      <Text>Sign In</Text>
       <SignInForm onSubmit={handleSignIn} loading={loading} />
+      <Text>or</Text>
+      <CustomButton
+        style={styles.createAccauntButton}
+        title="CREATE ACCAUNT"
+        onPress={() => navigate(AppScreens.CommonNavigator, { screen: CommonScreens.SignUp })}
+      />
     </View>
 
   );

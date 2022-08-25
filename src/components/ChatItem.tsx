@@ -45,7 +45,11 @@ const ChatItem: React.FC<Props> = (props) => {
           {/* <Text>{date?.toDateString()}</Text> */}
           <Text>{documentData.message}</Text>
         </View>
-        <CustomButton title="X" style={{ width: 40 }} onPress={handleDelete} />
+        <CustomButton
+          style={{ width: 40, backgroundColor: undefined }}
+          onPress={handleDelete}
+          title="✖"
+        />
       </View>
     </TouchableOpacity>
   );

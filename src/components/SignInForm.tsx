@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
 import {
-  Alert, View,
+  Alert, Text, View,
 } from 'react-native';
 import { useFormik } from 'formik';
 

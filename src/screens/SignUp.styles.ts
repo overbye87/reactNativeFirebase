@@ -9,10 +9,4 @@ export const styles = StyleSheet.create({
   separator: {
     marginBottom: 20,
   },
-  createAccauntButton: {
-    width: 300,
-    backgroundColor: undefined,
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
 });

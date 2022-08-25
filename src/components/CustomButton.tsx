@@ -7,7 +7,7 @@ import {
 import { styles } from './CustomButton.styles';
 
 interface Props extends TouchableOpacityProps {
-  title: string;
+  title?: string | null;
   loading?: boolean;
 }
 
@@ -17,6 +17,7 @@ const CustomButton: React.FC<Props> = (props) => {
       {...props}
       style={[styles.button, props.style]}
     >
+      {!props.loading ? props.children : null}
       {props.loading ? <ActivityIndicator size="small" color="gray" /> : <Text>{props.title}</Text>}
     </TouchableOpacity>
   );
@@ -26,4 +27,5 @@ export default CustomButton;
 
 CustomButton.defaultProps = {
   loading: false,
+  title: null,
 };
