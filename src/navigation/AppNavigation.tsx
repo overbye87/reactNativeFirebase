@@ -10,15 +10,18 @@ import CommonNavigator, { CommonStackParamList } from './CommonNavigator';
 import ProtectedNavigator, { ProtectedStackParamList } from './ProtectedNavigator';
 import { useTypedDispatch, useTypedSelector } from '../store/store';
 import { setLoading, setUser } from '../store/app/appSlice';
+import DrawerNavigator, { DrawerStackParamList } from './DrawerNavigator';
 
 export enum AppScreens {
   'CommonNavigator'= 'CommonNavigator',
   'ProtectedNavigator'= 'ProtectedNavigator',
+  'DrawerNavigator'= 'DrawerNavigator',
 }
 
 export type AppStackParamList = {
  [AppScreens.CommonNavigator]: { screen: keyof CommonStackParamList; },
  [AppScreens.ProtectedNavigator]: { screen: keyof ProtectedStackParamList; },
+ [AppScreens.DrawerNavigator]: { screen: keyof DrawerStackParamList; },
 };
 
 export type AppScreenKeys = keyof AppStackParamList;
@@ -62,11 +65,16 @@ const AppNavigation: React.FC = () => {
               />
             )
             : (
+              // <AppStack.Screen
+              //   name={AppScreens.ProtectedNavigator}
+              //   component={ProtectedNavigator}
+              //   options={{ headerShown: false }}
+              // />
               <AppStack.Screen
-                name={AppScreens.ProtectedNavigator}
-                component={ProtectedNavigator}
-                options={{ headerShown: false }}
-              />
+              name={AppScreens.DrawerNavigator}
+              component={DrawerNavigator}
+              options={{ headerShown: false }}
+            />
             )
         }
       </AppStack.Navigator>

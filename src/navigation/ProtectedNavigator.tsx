@@ -5,8 +5,12 @@ import { RouteProp } from '@react-navigation/native';
 import Chat from '../screens/Chat';
 import HamburgerLines from '../components/HamburgerLines';
 
+export enum ProtectedScreens {
+  'Chat'= 'Chat',
+}
+
 export type ProtectedStackParamList = {
-  Chat: undefined;
+  [ProtectedScreens.Chat]: undefined;
 }
 
 type ScreenKeys = keyof ProtectedStackParamList;
@@ -19,13 +23,13 @@ const ProtectedStack = createNativeStackNavigator<ProtectedStackParamList>();
 
 const ProtectedNavigator: React.FC = () => {
   return (
-    <ProtectedStack.Navigator>
+    <ProtectedStack.Navigator initialRouteName={ProtectedScreens.Chat}>
       <ProtectedStack.Screen
-        name="Chat"
+        name={ProtectedScreens.Chat}
         component={Chat}
         options={{
           title: 'Chat',
-          headerRight: (props) => <HamburgerLines {...props}/>,
+          headerRight: (props) => <HamburgerLines />,
         }}
       />
     </ProtectedStack.Navigator>
