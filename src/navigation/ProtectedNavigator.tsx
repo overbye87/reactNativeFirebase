@@ -1,7 +1,9 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import Chat from '../screens/Chat';
+import HamburgerLines from '../components/HamburgerLines';
 
 export type ProtectedStackParamList = {
   Chat: undefined;
@@ -21,7 +23,10 @@ const ProtectedNavigator: React.FC = () => {
       <ProtectedStack.Screen
         name="Chat"
         component={Chat}
-        options={{ title: 'Chat', headerShown: false }}
+        options={{
+          title: 'Chat',
+          headerRight: (props) => <HamburgerLines {...props}/>,
+        }}
       />
     </ProtectedStack.Navigator>
   );

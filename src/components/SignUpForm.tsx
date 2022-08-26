@@ -5,23 +5,23 @@ import {
 } from 'react-native';
 import { useFormik } from 'formik';
 
-import { styles } from './SignInForm.styles';
 import CustomTextInput from './CustomTextInput';
 import CustomButton from './CustomButton';
+import { styles } from './SignUpForm.styles';
 
 const initialValues = {
   email: 'test@test.com',
   password: '123456',
 };
 
-export type ISignInForm = typeof initialValues
+export type ISignUpForm = typeof initialValues
 
 type Props = {
-  onSubmit: (values: ISignInForm) => void;
+  onSubmit: (values: ISignUpForm) => void;
   loading?: boolean;
 }
 
-const SignInForm: React.FC<Props> = (props) => {
+const SignUpForm: React.FC<Props> = (props) => {
   const formik = useFormik({
     initialValues,
     onSubmit: props.onSubmit,
@@ -53,8 +53,8 @@ const SignInForm: React.FC<Props> = (props) => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
 
-SignInForm.defaultProps = {
+SignUpForm.defaultProps = {
   loading: false,
 };
