@@ -14,10 +14,9 @@ export type CommonStackParamList = {
   [CommonScreens.SignUp]: undefined;
 }
 
-type ScreenKeys = keyof CommonStackParamList;
-export type RouteCommonStack<T extends ScreenKeys> =
+export type RouteCommonStack<T extends CommonScreens> =
   RouteProp<CommonStackParamList, T>;
-export type NavigationCommonStack<T extends ScreenKeys> =
+export type NavigationCommonStack<T extends CommonScreens> =
   NativeStackNavigationProp<CommonStackParamList, T>;
 
 const CommonStack = createNativeStackNavigator<CommonStackParamList>();

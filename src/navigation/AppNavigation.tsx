@@ -6,28 +6,24 @@ import {
 } from '@react-navigation/native-stack';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-import CommonNavigator, { CommonStackParamList } from './CommonNavigator';
-import ProtectedNavigator, { ProtectedStackParamList } from './ProtectedNavigator';
+import CommonNavigator, { CommonScreens } from './CommonNavigator';
 import { useTypedDispatch, useTypedSelector } from '../store/store';
 import { setLoading, setUser } from '../store/app/appSlice';
-import DrawerNavigator, { DrawerStackParamList } from './DrawerNavigator';
+import DrawerNavigator, { DrawerScreens } from './DrawerNavigator';
 
 export enum AppScreens {
-  'CommonNavigator'= 'CommonNavigator',
-  'ProtectedNavigator'= 'ProtectedNavigator',
-  'DrawerNavigator'= 'DrawerNavigator',
+  'CommonNavigator' = 'CommonNavigator',
+  'DrawerNavigator' = 'DrawerNavigator',
 }
 
 export type AppStackParamList = {
- [AppScreens.CommonNavigator]: { screen: keyof CommonStackParamList; },
- [AppScreens.ProtectedNavigator]: { screen: keyof ProtectedStackParamList; },
- [AppScreens.DrawerNavigator]: { screen: keyof DrawerStackParamList; },
+  [AppScreens.CommonNavigator]: { screen: CommonScreens; },
+  [AppScreens.DrawerNavigator]: { screen: DrawerScreens; },
 };
 
-export type AppScreenKeys = keyof AppStackParamList;
-export type RouteAppStack<T extends AppScreenKeys> =
+export type RouteAppStack<T extends AppScreens> =
   RouteProp<AppStackParamList, T>;
-export type NavigationAppStack<T extends AppScreenKeys> =
+export type NavigationAppStack<T extends AppScreens> =
   NativeStackNavigationProp<AppStackParamList, T>;
 
 const AppStack = createNativeStackNavigator<AppStackParamList>();
@@ -54,27 +50,22 @@ const AppNavigation: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <AppStack.Navigator>
+      <AppStack.Navigator
+        screenOptions={{ headerShown: false }}
+      >
         {
           !user
             ? (
               <AppStack.Screen
                 name={AppScreens.CommonNavigator}
                 component={CommonNavigator}
-                options={{ headerShown: false }}
               />
             )
             : (
-              // <AppStack.Screen
-              //   name={AppScreens.ProtectedNavigator}
-              //   component={ProtectedNavigator}
-              //   options={{ headerShown: false }}
-              // />
               <AppStack.Screen
-              name={AppScreens.DrawerNavigator}
-              component={DrawerNavigator}
-              options={{ headerShown: false }}
-            />
+                name={AppScreens.DrawerNavigator}
+                component={DrawerNavigator}
+              />
             )
         }
       </AppStack.Navigator>
