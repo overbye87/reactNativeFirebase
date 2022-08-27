@@ -6,13 +6,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-    marginHorizontal: 20,
-  },
   chat: {
     flex: 1,
     flexGrow: 1,

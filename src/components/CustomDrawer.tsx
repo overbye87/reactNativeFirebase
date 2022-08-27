@@ -6,17 +6,30 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import { Alert, Text } from 'react-native';
+import { Alert } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import DrawerUserItem from './DrawerUserItem';
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
+  const signOut = async () => {
+    const result = await auth().signOut();
+    // Alert.alert('signOut', JSON.stringify(result, null, 2));
+  };
   return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Help"
-        onPress={() => { Alert.alert('Help', 'Help yourself'); }}
-      />
-    </DrawerContentScrollView>
+    <>
+      <DrawerUserItem />
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+        <DrawerItem
+          label="Help"
+          onPress={() => { Alert.alert('Help', 'Help yourself'); }}
+        />
+        <DrawerItem
+          label="Sign out"
+          onPress={signOut}
+        />
+      </DrawerContentScrollView>
+    </>
   );
 };
 

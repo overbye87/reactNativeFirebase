@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Alert, FlatList, ListRenderItem, Text, View,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 import { styles } from './Chat.styles';
@@ -19,11 +18,6 @@ export enum Collections {
 const Chat: React.FC = () => {
   const user = useTypedSelector((store) => store.app.user);
   const snapshot = useCollectionSnapshot(Collections.messages);
-
-  const signOut = async () => {
-    const result = await auth().signOut();
-    // Alert.alert('signOut', JSON.stringify(result, null, 2));
-  };
 
   const handleOnSubmit = (value: string) => {
     // Alert.alert('message', value);
@@ -45,10 +39,6 @@ const Chat: React.FC = () => {
 
   return (
     <View style={styles.сontainer}>
-      <View style={styles.header}>
-        <Text style={{ flexGrow: 1 }}>User: {user?.email}</Text>
-        <CustomButton title="SIGN OUT" onPress={signOut} />
-      </View>
       <View style={styles.chat}>
         <FlatList
           data={snapshot?.docs}
