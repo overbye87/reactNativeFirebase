@@ -6,11 +6,11 @@ import SignInForm, { ISignInForm } from '../components/SignInForm';
 import { styles } from './SignIn.styles';
 import { useTypedSelector } from '../store/store';
 import CustomButton from '../components/CustomButton';
-import { NavigationAppStack, AppScreenKeys, AppScreens } from '../navigation/AppNavigation';
+import { NavigationAppStack, AppScreens } from '../navigation/AppNavigation';
 import { CommonScreens } from '../navigation/CommonNavigator';
 
 const SignIn: React.FC = () => {
-  const { navigate } = useNavigation<NavigationAppStack<AppScreenKeys>>();
+  const { navigate } = useNavigation<NavigationAppStack<AppScreens>>();
   const [loading, setLoading] = useState(false);
   const handleSignIn = async (values: ISignInForm) => {
     setLoading(true);

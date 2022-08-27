@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
 import CustomButton from '../components/CustomButton';
-import { AppScreenKeys, AppScreens, NavigationAppStack } from '../navigation/AppNavigation';
+import { AppScreens, NavigationAppStack } from '../navigation/AppNavigation';
 import { CommonScreens } from '../navigation/CommonNavigator';
 import { styles } from './SignUp.styles';
 
 const SignUp = () => {
-  const { navigate, goBack } = useNavigation<NavigationAppStack<AppScreenKeys>>();
+  const { navigate, goBack } = useNavigation<NavigationAppStack<AppScreens>>();
   return (
     <View style={styles.сontainer}>
       <CustomButton
