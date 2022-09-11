@@ -11,8 +11,7 @@ const DrawerUserItem: React.FC = () => {
       <View style={styles.avatar} />
       <View style={styles.header}>
         <Text>
-          User:
-          {' '}
+          {'User: '}
           {user?.email}
         </Text>
       </View>
